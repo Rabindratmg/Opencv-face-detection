@@ -18,7 +18,7 @@ def generate_dataset():
             file_path = "dataset/" + "Rabindra."+str(img_id)+".jpg"
             cv2.imwrite(file_path,face)
             cv2.imshow("cropped_face",frame)
-        if cv2.waitKey(20) == 13 or int(img_id)==10:
+        if cv2.waitKey(20) == 13 or int(img_id)==100:
             break
     cap.release()
     cv2.destroyAllWindows()
