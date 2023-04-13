@@ -15,7 +15,7 @@ def generate_dataset():
             cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
             cv2.putText(frame,str(img_id),(150,150),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),2)
             face = cv2.resize(roi_face,(200,200))
-            file_path = "dataset/" + "Rabindra."+ str(img_id)+".jpg"
+            file_path = "dataset/" + "Yujan"+ str(img_id)+".jpg"
             cv2.imwrite(file_path,face)
             cv2.imshow("cropped_face",frame)
         if cv2.waitKey(20) == 13 or int(img_id)==1000:
