@@ -6,7 +6,7 @@ from keras.models import load_model
 import time
 import tensorflow as tf
 from tensorflow import keras
-
+import matplotlib.pyplot as plt
 
 
 
@@ -32,26 +32,44 @@ while True:
         roi_gray = gray[y:y+h,x:x+w]
 
         # Preprocess the face image (e.g., resize it to a consistent size)
-        face_img = cv2.resize(roi_gray, (50, 50))
+        face_img = cv2.resize(roi_gray, (64, 64))
 
-        face_img = face_img.reshape(50, 50, 1)  # Reshape to (50, 50, 1)
+        face_img = face_img.reshape(64, 64, 1)  # Reshape to (50, 50, 1)
        
         
         # Make a prediction on the face image using the trained model
-        prediction = model.predict(face_img.reshape(1, 50, 50, 1))
-        probvalue = np.amax(prediction)
+        prediction = model.predict(face_img.reshape(1, 64, 64, 1))
+        probvalue = np.amax(prediction) 
 
-        if np.argmax(prediction)==0:
-            label = "Rabindra"
         
-        elif np.argmax(prediction)==1:
-            label = "Riju"
+            
         
-        elif np.argmax(prediction)==2:
-            label = "Rojina"
+        class_labels = np.argmax(prediction, axis=1)
+        print(class_labels)
+        print(int(probvalue*100))
+        if int(probvalue*100)>=100:
+            if np.argmax(prediction)==0:
+                label = "Prabhat"
+            
+            elif np.argmax(prediction)==1:
+                label = "Rabindra"
+                
+            elif np.argmax(prediction)==2:
+                label = "Riju"
+                
+            elif np.argmax(prediction)==3:
+                label = "Rojina"
+                
+            elif np.argmax(prediction)==4:
+                label = "Yujan"
+            count+=1
+                    
+        else:
+            label="Unkown"
 
 
-        count+=1
+
+        
 
 
         #Drawing a rectangle around face
@@ -61,15 +79,14 @@ while True:
         height = y+h
         cv2.rectangle(frame,(x,y),(width,height),color,stroke)
         cv2.putText(frame, str(label), (x, y-10), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
-        cv2.putText(frame,str(round(probvalue*100,2))+"%",(180,75),cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
-        print(count)
+        cv2.putText(frame,str(int(probvalue*100))+"%",(180,75),cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
         output.append(label)
 
 
 
     cv2.imshow("Video capture",frame)
     
-    if count==50:
+    if count==20:
         break
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
@@ -77,4 +94,3 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-print(output)
