@@ -2,8 +2,9 @@ import cv2
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-image_dir = os.path.join(BASE_DIR, "dataset\Rabindra\\")
+image_dir = os.path.join(BASE_DIR, "dataset\\Nitesh\\")
 print(image_dir)
+
 
 
 def generate_dataset():

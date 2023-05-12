@@ -47,22 +47,42 @@ while True:
         class_labels = np.argmax(prediction, axis=1)
         print(class_labels)
         print(int(probvalue*100))
-        if int(probvalue*100)>=100:
+        if int(probvalue*100)>=95:
             if np.argmax(prediction)==0:
-                label = "Prabhat"
-            
+                label = "Bibek"
+                
             elif np.argmax(prediction)==1:
-                label = "Rabindra"
+                label = "Dipak"
                 
             elif np.argmax(prediction)==2:
-                label = "Riju"
+                label = "Kabita"
                 
             elif np.argmax(prediction)==3:
-                label = "Rojina"
+                label = "Nitesh"
                 
             elif np.argmax(prediction)==4:
+                label = "Prabhat"
+                
+            elif np.argmax(prediction)==5:
+                label = "Rabindra"
+                
+            elif np.argmax(prediction)==6:
+                label = "Riju"
+                
+            elif np.argmax(prediction)==7:
+                label = "Rojina"
+                
+            elif np.argmax(prediction)==8:
+                label = "Sagar"
+                
+            elif np.argmax(prediction)==9:
+                label = "Simran"
+                
+            elif np.argmax(prediction)==10:
                 label = "Yujan"
+                
             count+=1
+            output.append(label)
                     
         else:
             label="Unkown"
@@ -80,7 +100,7 @@ while True:
         cv2.rectangle(frame,(x,y),(width,height),color,stroke)
         cv2.putText(frame, str(label), (x, y-10), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
         cv2.putText(frame,str(int(probvalue*100))+"%",(180,75),cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
-        output.append(label)
+ 
 
 
 
@@ -91,6 +111,6 @@ while True:
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
             break
-
+print(output)
 cap.release()
 cv2.destroyAllWindows()
